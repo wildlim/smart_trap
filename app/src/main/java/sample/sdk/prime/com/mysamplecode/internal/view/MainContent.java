@@ -60,7 +60,7 @@ public class MainContent extends RelativeLayout {
 
     private BaseProduct mProduct;
 
-    int testVal = 2;
+    int testVal = 5;
 
 
     @Override
