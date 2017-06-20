@@ -29,6 +29,7 @@ import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.BluetoothProductConnector;
 import dji.sdk.sdkmanager.DJISDKManager;
 import sample.sdk.prime.com.mysamplecode.primedrone.DroneMenuView;
+import sample.sdk.prime.com.mysamplecode.primedrone.TrapList;
 import sample.sdk.prime.com.mysamplecode.primedrone.getsetState;
 
 
@@ -36,11 +37,12 @@ import sample.sdk.prime.com.mysamplecode.primedrone.getsetState;
  * Created by dji on 15/12/18.
  */
 public class MainContent extends RelativeLayout {
-
+    Context thisCon;
     public static final String TAG = MainContent.class.getName();
 
     public MainContent(Context context, AttributeSet attrs) {
         super(context, attrs);
+        thisCon = context;
     }
 
     private TextView mTextConnectionStatus;
@@ -78,18 +80,19 @@ public class MainContent extends RelativeLayout {
         mTextProduct = (TextView) findViewById(R.id.text_product_info);
 
         mBtnStart = (Button)findViewById(R.id.btn_start);
-        //mBtnStart.setEnabled(false);
+        mBtnStart.setEnabled(false);
 
 
         mBtnStart.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (GeneralUtils.isFastDoubleClick()) return;
-                DroneMenuView.Load();
+                /*DroneMenuView.Load();
                 DJISampleApplication.getEventBus()
                         .post(new ViewWrapper(new DroneMenuView(getContext()),
                                 R.string.activity_start_menu));
-
+*/              Intent intent = new Intent(thisCon, TrapList.class);
+                thisCon.startActivity(intent);
             }
         });
 
@@ -222,7 +225,7 @@ public class MainContent extends RelativeLayout {
                 mTextProduct.setText(R.string.product_information);
             }
         } else {
-            mBtnStart.setEnabled(true);
+            mBtnStart.setEnabled(false);// default = false,, if device connected, it changed true.
 
             mTextProduct.setText(R.string.product_information);
             mTextConnectionStatus.setText(R.string.connection_loose);
